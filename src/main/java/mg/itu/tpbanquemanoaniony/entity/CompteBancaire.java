@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -15,6 +18,12 @@ import java.io.Serializable;
  * @author ramarolahymanoaniony
  */
 @Entity
+@Table(name = "COMPTEBANCAIRE")
+@NamedQueries({
+    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c"),
+    @NamedQuery(name = "CompteBancaire.findByCompteBancaireId", query = "SELECT c FROM CompteBancaire c WHERE c.id = :id"),
+    @NamedQuery(name = "CompteBancaire.findByNom", query = "SELECT c FROM CompteBancaire c WHERE c.nom = :nom")
+})
 public class CompteBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
