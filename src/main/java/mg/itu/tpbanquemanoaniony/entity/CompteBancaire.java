@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
@@ -19,10 +20,9 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "COMPTEBANCAIRE")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c"),
-    @NamedQuery(name = "CompteBancaire.findByCompteBancaireId", query = "SELECT c FROM CompteBancaire c WHERE c.id = :id"),
-    @NamedQuery(name = "CompteBancaire.findByNom", query = "SELECT c FROM CompteBancaire c WHERE c.nom = :nom")
+    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT c FROM CompteBancaire c")
 })
 public class CompteBancaire implements Serializable {
 
@@ -34,7 +34,8 @@ public class CompteBancaire implements Serializable {
     private String nom;
 
     private int solde;
-
+    
+    public CompteBancaire() {}
     /**
      * Get the value of solde
      *
@@ -116,10 +117,4 @@ public class CompteBancaire implements Serializable {
             solde = 0;
         }
     }
-
-    public CompteBancaire() {
-        
-    }
-    
-
 }

@@ -6,7 +6,6 @@ package mg.itu.tpbanquemanoaniony.service;
 
 import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -68,13 +67,35 @@ public class GestionnaireCompte {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Long nbComptes() {
         String req = "select count(e) from CompteBancaire as e";
         TypedQuery<Long> query = em.createQuery(req, Long.class);
         return query.getSingleResult();
+    }
+    
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public CompteBancaire findById(Long id){
+        return em.find(CompteBancaire.class , id);
+    }
+
+    @Transactional
+    public void transferer(CompteBancaire source, CompteBancaire destination, int montant) {
+        source.retirer(montant);
+        destination.deposer(montant);
+        update(source);
+        update(destination);
+    }
+
+    @Transactional
+    public CompteBancaire update(CompteBancaire compteBancaire) {
+        return em.merge(compteBancaire);
     }
 
 }
