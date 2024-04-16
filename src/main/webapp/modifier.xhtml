@@ -21,22 +21,25 @@
             </ui:define>
 
             <ui:define name="content">
-                <h:form id="form">
-                    <h:panelGrid columns="3">
-                        Nom : 
-                        <h:inputText id="nom" value="#{modifier.compte.nom}"
-                                     required="true"/>
-                        <h:message for="nom"/>
-                    </h:panelGrid>
-                    <h:panelGrid columns="3">
-                        Solde : 
-                        <h:inputText id="solde" value="#{modifier.compte.solde}"
-                                     required="true"
-                                     converterMessage="solde est un nombre entier"/>
-                        <h:message for="solde"/>
-                    </h:panelGrid>
-                    <h:commandButton id="valider" value="Valider" action="#{modifier.update()}"/>
-                </h:form>
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Modification du nom d'un possesseur d'un compte"/></h1>
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel value="Nom : " for="nom" />
+                            <h:inputText id="nom" value="#{modifier.compte.nom}" title="nom" required="true"/>
+
+                            <h:outputLabel value="Solde : " for="solde" />
+                            <h:inputText id="solde" value="#{modifier.compte.solde}" title="solde" required="true"/>
+
+                            <h:commandButton id="update" value="Enregistrer" action="#{modifier.update()}"/>
+                        </h:panelGrid>
+
+                        <h:messages/>
+
+                    </h:form>
+
+                </f:view>
             </ui:define>
 
         </ui:composition>
