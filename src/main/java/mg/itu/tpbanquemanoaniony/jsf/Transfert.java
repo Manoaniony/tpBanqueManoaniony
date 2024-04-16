@@ -4,7 +4,7 @@
  */
 package mg.itu.tpbanquemanoaniony.jsf;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import jakarta.inject.Inject;
 import java.io.Serializable;
@@ -18,7 +18,7 @@ import mg.itu.tpbanquemanoaniony.service.GestionnaireCompte;
  * @author ramarolahymanoaniony
  */
 @Named(value = "transfert")
-@ApplicationScoped
+@ViewScoped
 public class Transfert implements Serializable {
 
     private Long idSource;
