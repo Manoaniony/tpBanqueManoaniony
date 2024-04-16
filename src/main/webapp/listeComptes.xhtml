@@ -62,6 +62,13 @@
                                 <h:graphicImage name="images/del.png" style="width:25px"/>
                             </h:commandLink>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value=""/>
+                            </f:facet>                           
+                            <h:link  outcome="modifier?id=#{item.id}" 
+                            value="Modifier"/>
+                        </p:column>
 
                     </p:dataTable>
                     <h:messages/>
