@@ -4,15 +4,20 @@
  */
 package mg.itu.tpbanquemanoaniony.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,7 +40,17 @@ public class CompteBancaire implements Serializable {
 
     private int solde;
     
-    public CompteBancaire() {}
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)  
+    private List<OperationBancaire> operations = new ArrayList<>();
+                    
+     
+    
+    public CompteBancaire() {
+    }
+    
+    public List<OperationBancaire> getOperations() {  
+      return operations;  
+    } 
     /**
      * Get the value of solde
      *
@@ -44,6 +59,7 @@ public class CompteBancaire implements Serializable {
     public int getSolde() {
         return solde;
     }
+    
 
     /**
      * Set the value of solde
@@ -104,15 +120,18 @@ public class CompteBancaire implements Serializable {
     public CompteBancaire(String nom, int solde) {
         this.nom = nom;
         this.solde = solde;
+        this.operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     public void deposer(int montant) {
         solde += montant;
+        this.operations.add(new OperationBancaire("credit", montant));
     }
 
     public void retirer(int montant) {
         if (montant < solde) {
             solde -= montant;
+            this.operations.add(new OperationBancaire("debit", -(montant)));
         } else {
             solde = 0;
         }
