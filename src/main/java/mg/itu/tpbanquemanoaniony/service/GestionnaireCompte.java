@@ -61,8 +61,18 @@ public class GestionnaireCompte {
      *
      * @return
      */
-    public List<CompteBancaire> getAllComptes() {
+    /*public List<CompteBancaire> getAllComptes() {
         Query query = em.createNamedQuery("CompteBancaire.findAll");
+        return query.getResultList();
+    }*/
+    
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<CompteBancaire> getAllComptes() {
+        TypedQuery<CompteBancaire> query = em.createQuery( "SELECT c FROM CompteBancaire c join fetch c.operations" , CompteBancaire.class );
         return query.getResultList();
     }
 
